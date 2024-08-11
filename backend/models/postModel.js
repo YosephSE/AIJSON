@@ -9,19 +9,12 @@ const postSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  image: {
-    type: String,
-    required: true,
-  },
   authorId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: "User",
   },
-  category: {
-    type: String,
-    required: true,
-  },
+
   createdAt: {
     type: Date,
     default: Date.now,

@@ -33,9 +33,9 @@ const deletePost = async (req, res) => {
 const createPost = async (req, res) => {
   try {
     const authorId = req.user._id;
-    const { title, content, category, image } = req.body;
+    const { title, content } = req.body;
 
-    if (!title || !content || !authorId || !category || !image) {
+    if (!title || !content) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -47,8 +47,6 @@ const createPost = async (req, res) => {
       title,
       content,
       authorId,
-      category,
-      image,
     });
 
     const savedPost = await newPost.save();
