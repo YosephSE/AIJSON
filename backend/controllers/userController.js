@@ -64,7 +64,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     httpOnly: process.env.ENV !== dev,
     expires: new Date(0),
     httpOnly: true,
-    secure: false,
+    secure: true,
     sameSite: "None",
   });
   res.status(200).json({ message: "User LoggedOut Successfully" });
