@@ -64,10 +64,17 @@ const createPost = async (req, res) => {
 
 const allPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate({
-      path: "authorId",
-      select: "name profilePicture",
+    let posts = await Post.find().select("-authorId");
+
+    posts = posts.map((post) => {
+      post.comments = post.comments.map((comment) => {
+        const { authorId, ...rest } = comment.toObject();
+        return rest;
+      });
+
+      return post;
     });
+
     res.json(posts);
   } catch (err) {
     console.error("Error retrieving posts:", err);
