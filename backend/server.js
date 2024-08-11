@@ -13,7 +13,7 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://eyoelm5.github.io",
+    origin: ["https://eyoelm5.github.io", "http://localhost:5173"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Set-Cookie"],
   })
@@ -24,7 +24,7 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 conncetDB();
 
 app.use("/api/users", userRoutes);
-app.use("/api/posts", postRoutes);
+app.use("/api/vents", postRoutes);
 app.use("/api/chatbot", chatBot);
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Successfully Deployed" });

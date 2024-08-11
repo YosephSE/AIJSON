@@ -178,7 +178,6 @@ const deleteComment = async (req, res) => {
   const { postId, commentId } = req.params;
   const newCommentId = new mongoose.Types.ObjectId(commentId);
 
-
   // if (
   //   !mongoose.Types.ObjectId.isValid(postId) ||
   //   !mongoose.Types.ObjectId.isValid(commentId)
