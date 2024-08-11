@@ -1,6 +1,4 @@
 import Post from "../models/postModel.js";
-import User from "../models/userModel.js";
-import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 
 const deletePost = async (req, res) => {
@@ -83,15 +81,15 @@ const singlePost = async (req, res) => {
   }
 
   try {
-    const post = await Post.findOne({ _id: postId })
+    const vent = await Post.findOne({ _id: postId })
       .select("-authorId")
       .select("-comments.authorId");
 
-    if (!post) {
+    if (!vent) {
       return res.status(404).json({ error: "Post not found" });
     }
 
-    res.status(200).json({ post });
+    res.status(200).json({ vent });
   } catch (err) {
     console.error("Error retrieving post:", err);
     res
