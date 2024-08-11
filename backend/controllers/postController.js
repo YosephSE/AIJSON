@@ -64,16 +64,9 @@ const createPost = async (req, res) => {
 
 const allPosts = async (req, res) => {
   try {
-    let posts = await Post.find().select("-authorId");
-
-    posts = posts.map((post) => {
-      post.comments = post.comments.map((comment) => {
-        const { authorId, ...rest } = comment.toObject();
-        return rest;
-      });
-
-      return post;
-    });
+    let posts = await Post.find()
+      .select("-authorId")
+      .select("-comments.authorId");
 
     res.json(posts);
   } catch (err) {
@@ -91,20 +84,13 @@ const singlePost = async (req, res) => {
 
   try {
     const post = await Post.findOne({ _id: postId })
-      .populate({
-        path: "authorId",
-        select: "name profilePicture",
-      })
-      .populate({
-        path: "comments.authorId",
-        select: "name profilePicture ",
-      });
+      .select("-authorId")
+      .select("-comments.authorId");
 
     if (!post) {
       return res.status(404).json({ error: "Post not found" });
     }
 
-    // Return the post with populated author and comments' author details
     res.status(200).json({ post });
   } catch (err) {
     console.error("Error retrieving post:", err);
